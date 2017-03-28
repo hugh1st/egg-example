@@ -28,14 +28,15 @@
         "D:\\nodejs\\egg-example\\node_modules\\egg-watcher\\config\\locales",
         "D:\\nodejs\\egg-example\\node_modules\\egg-multipart\\config\\locales",
         "D:\\nodejs\\egg-example\\node_modules\\egg-security\\config\\locales",
-        "D:\\nodejs\\egg-example\\node_modules\\egg-development\\config\\locales",
         "D:\\nodejs\\egg-example\\node_modules\\egg-schedule\\config\\locales",
         "D:\\nodejs\\egg-example\\node_modules\\egg-logrotator\\config\\locales",
         "D:\\nodejs\\egg-example\\node_modules\\egg-static\\config\\locales",
         "D:\\nodejs\\egg-example\\node_modules\\egg-jsonp\\config\\locales",
         "D:\\nodejs\\egg-example\\node_modules\\egg-view\\config\\locales",
         "D:\\nodejs\\egg-example\\node_modules\\egg-view-nunjucks\\config\\locales",
+        "D:\\nodejs\\egg-example\\node_modules\\egg-mock\\config\\locales",
         "D:\\nodejs\\egg-example\\node_modules\\egg\\config\\locales",
+        "D:\\nodejs\\egg-example\\node_modules\\egg-mock\\lib\\tmp\\config\\locales",
         "D:\\nodejs\\egg-example\\config\\locales"
       ]
     },
@@ -107,11 +108,6 @@
     "helper": {
       "shtml": {}
     },
-    "development": {
-      "watchDirs": [],
-      "ignoreDirs": [],
-      "fastReady": true
-    },
     "logrotator": {
       "filesRotateByHour": null,
       "filesRotateBySize": null,
@@ -136,7 +132,7 @@
       "root": [
         "D:\\nodejs\\egg-example\\app\\view"
       ],
-      "cache": false,
+      "cache": true,
       "defaultExtension": ".html",
       "defaultViewEngine": "nunjucks",
       "mapping": {
@@ -148,9 +144,9 @@
       "throwOnUndefined": false,
       "trimBlocks": false,
       "lstripBlocks": false,
-      "cache": false
+      "cache": true
     },
-    "env": "local",
+    "env": "unittest",
     "name": "egg-example",
     "keys": "<String len: 16>",
     "proxy": false,
@@ -163,7 +159,7 @@
       "description": "",
       "main": "app.js",
       "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "egg-bin test",
         "dev": "egg-bin dev"
       },
       "repository": {
@@ -181,7 +177,9 @@
         "egg-view-nunjucks": "^2.0.0"
       },
       "devDependencies": {
-        "egg-bin": "^3.1.0"
+        "egg-bin": "^3.1.0",
+        "egg-mock": "^3.2.0",
+        "supertest": "^3.0.0"
       }
     },
     "baseDir": "D:\\nodejs\\egg-example",
@@ -212,18 +210,16 @@
     "logger": {
       "dir": "D:\\nodejs\\egg-example\\logs\\egg-example",
       "encoding": "utf8",
-      "env": "local",
-      "level": "DEBUG",
-      "consoleLevel": "INFO",
+      "env": "unittest",
+      "level": "INFO",
+      "consoleLevel": "WARN",
       "outputJSON": false,
       "buffer": false,
       "appLogName": "egg-example-web.log",
       "coreLogName": "egg-web.log",
       "agentLogName": "egg-agent.log",
       "errorLogName": "common-error.log",
-      "coreLogger": {
-        "consoleLevel": "WARN"
-      },
+      "coreLogger": {},
       "type": "application"
     },
     "httpclient": {
@@ -249,6 +245,15 @@
       "pageSize": 5,
       "serverUrl": "https://hacker-news.firebaseio.com/v0"
     },
+    "middleware": [
+      "robot"
+    ],
+    "robot": {
+      "ua": [
+        {},
+        {}
+      ]
+    },
     "coreMiddlewares": [
       "meta",
       "siteFile",
@@ -259,8 +264,12 @@
       "i18n",
       "securities"
     ],
-    "appMiddlewares": [],
-    "appMiddleware": [],
+    "appMiddlewares": [
+      "robot"
+    ],
+    "appMiddleware": [
+      "robot"
+    ],
     "multipartParseOptions": {
       "autoFields": false,
       "defCharset": "utf8",
@@ -343,21 +352,6 @@
       "path": "D:\\nodejs\\egg-example\\node_modules\\egg-security",
       "version": "1.9.0"
     },
-    "development": {
-      "enable": true,
-      "package": "egg-development",
-      "name": "development",
-      "dependencies": [
-        "watcher"
-      ],
-      "optionalDependencies": [],
-      "env": [
-        "local"
-      ],
-      "from": "D:\\nodejs\\egg-example\\node_modules\\egg\\config\\plugin.js",
-      "path": "D:\\nodejs\\egg-example\\node_modules\\egg-development",
-      "version": "1.2.0"
-    },
     "schedule": {
       "enable": true,
       "package": "egg-schedule",
@@ -430,6 +424,15 @@
       "from": "D:\\nodejs\\egg-example\\config\\plugin.js",
       "path": "D:\\nodejs\\egg-example\\node_modules\\egg-view-nunjucks",
       "version": "2.0.0"
+    },
+    "egg-mock": {
+      "enable": true,
+      "path": "D:\\nodejs\\egg-example\\node_modules\\egg-mock",
+      "name": "egg-mock",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "version": "3.2.0"
     }
   }
 }
